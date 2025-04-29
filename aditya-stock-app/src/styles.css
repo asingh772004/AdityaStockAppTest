@@ -1,0 +1,19 @@
+/* src/styles.css */
+.app-container {
+    display: flex;
+    height: 100vh;
+    font-family: sans-serif;
+  }
+  
+  .sidebar {
+    width: 20%;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  
+  .chart-container {
+    flex: 1;
+    padding: 1rem;
+  }
+  
