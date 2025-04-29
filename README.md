@@ -56,15 +56,6 @@ The app should now be accessible at http://localhost:5173 in your web browser.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 
 ## Additional Features
-- **Zoom on Graph**: Use the mouse scroll wheel to zoom in/out of the chart for more granular analysis.
 - **Dropdown for Metric Selection**: Choose the metric to visualize in the graph, including "Open", "Close", "Volume", and more.
 - **Custom Scrollbar**: A styled scrollbar for a clean user experience when scrolling the sidebar.
 - **Dark Mode Support**: The app comes with a dark-themed UI for a modern look and feel.
-
-## Future Improvements
-- **Mobile Optimization**: Ensure a smooth experience for mobile users.
-- **Additional Data Visualizations**: Adding more types of charts, such as bar charts and candlestick charts.
-- **Interactive Data Table**: Allow users to view raw stock data in an interactive table.
-
-## License
-This project is open-source and available under the [MIT License](LICENSE).
