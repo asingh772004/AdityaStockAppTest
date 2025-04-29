@@ -30,3 +30,8 @@ Follow these steps to set up the project locally:
     ```bash
     npm install
     ```
+
+3. **Run the project:**
+    ```bash
+    npm run dev
+    ```
