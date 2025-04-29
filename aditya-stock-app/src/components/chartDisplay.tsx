@@ -33,8 +33,8 @@ const ChartDisplay: React.FC<Props> = ({ data }) => {
       {
         label: 'Closing Index',
         data: closingValues,
-        borderColor: '#06b6d4',
-        backgroundColor: '#06b6d4',
+        borderColor: '#1DCD9F',
+        backgroundColor: '#1DCD9F',
         tension: 0.3,
       },
     ],

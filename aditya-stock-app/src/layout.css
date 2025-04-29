@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #0f172a; 
+    background-color: #000000; 
     color: white;
   }
   
@@ -15,10 +15,10 @@
   
   .sidebar {
     width: 500px;
-    background-color: #1e293b; 
+    background-color: #222222; 
     padding: 1rem;
     overflow-y: auto;
-    border-right: 1px solid #334155;
+    border-right: 1px solid #222222;
   }
 
   .sidebar-list {
@@ -33,16 +33,16 @@
   }
   
   .sidebar-list::-webkit-scrollbar-thumb {
-    background-color: #334155; 
+    background-color: #222222; 
     border-radius: 10px;
   }
   
   .sidebar-list::-webkit-scrollbar-track {
-    background-color: #0f172a; 
+    background-color: #000000; 
   }
   
   .sidebar-list::-webkit-scrollbar-thumb:hover {
-    background-color: #06b6d4;
+    background-color: #1DCD9F;
   }
   
   .sidebar ul {
@@ -58,18 +58,18 @@
   }
   
   .sidebar li:hover {
-    background-color: #334155;
+    background-color: #222222;
   }
   
   .sidebar li.active {
-    background-color: #06b6d4;
+    background-color: #1DCD9F;
     color: white;
   }
   
   .header {
     padding: 1rem;
-    background-color: #020617; 
-    color: #06b6d4;
+    background-color: #000000; 
+    color: #1DCD9F;
     font-size: 1.5rem;
     font-weight: bold;
   }
@@ -77,7 +77,7 @@
   .chart-area {
     flex: 1;
     padding: 1rem;
-    background-color: #1e293b;
+    background-color: #222222;
     height: 100%;
   }
   
