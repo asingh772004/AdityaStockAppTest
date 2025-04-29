@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Papa from 'papaparse';
+import { IndexData } from './utils/csvParser';
 import Sidebar from './components/sidebar';
 import ChartDisplay from './components/chartDisplay';
-import { loadCSVData, IndexData } from './utils/csvParser';
 import Header from './components/header';
 
 const App: React.FC = () => {
@@ -9,16 +10,28 @@ const App: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
 
   useEffect(() => {
-    loadCSVData().then(setData).catch(console.error);
+    fetch('/dump.csv')
+      .then((response) => response.text())
+      .then((csvText) => {
+        Papa.parse<IndexData>(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            setData(results.data.filter(d => d.index_name)); // remove empty rows
+          },
+        });
+      });
   }, []);
 
-  const indexNames = Array.from(new Set(data.map((d) => d.index_name)));
-  const filteredData = selectedIndex ? data.filter((d) => d.index_name === selectedIndex) : [];
+  const indexNames = Array.from(new Set(data.map(d => d.index_name)));
+  const filteredData = selectedIndex
+    ? data.filter(d => d.index_name === selectedIndex)
+    : [];
 
   return (
-    <div className="bg-slate-900 text-white h-screen flex flex-col">
+    <div className="flex flex-col h-screen bg-slate-900 text-white">
       <Header />
-      <div className="flex flex-1">
+      <div style={{ display: "flex", gap: "1rem" }}>
         <Sidebar
           indexNames={indexNames}
           selectedIndex={selectedIndex}

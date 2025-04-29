@@ -1,6 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { IndexData } from '../utils/csvParser';
+import '../layout.css';
 import {
   Chart as ChartJS,
   LineElement,
@@ -14,25 +15,24 @@ import {
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend);
 
-interface ChartDisplayProps {
+interface Props {
   data: IndexData[];
 }
 
-const ChartDisplay: React.FC<ChartDisplayProps> = ({ data }) => {
+const ChartDisplay: React.FC<Props> = ({ data }) => {
   if (data.length === 0) {
-    return <div className="w-3/4 p-4 text-gray-400">Select an index to view chart.</div>;
+    return <div className="chart-area">Select an index to see its chart.</div>;
   }
 
-  const labels = data.map((entry) => entry.index_date);
-  const closingValues = data.map((entry) => entry.closing_index_value);
+  const labels = data.map((d) => d.index_date);
+  const closingValues = data.map((d) => d.closing_index_value);
 
   const chartData = {
     labels,
     datasets: [
       {
-        label: 'Closing Index Value',
+        label: 'Closing Index',
         data: closingValues,
-        fill: false,
         borderColor: '#06b6d4',
         backgroundColor: '#06b6d4',
         tension: 0.3,
@@ -41,18 +41,20 @@ const ChartDisplay: React.FC<ChartDisplayProps> = ({ data }) => {
   };
 
   const options = {
-    plugins: {
-      legend: { labels: { color: 'white' } },
-    },
+    plugins: { legend: { labels: { color: 'white' } } },
     scales: {
       x: { ticks: { color: 'white' } },
       y: { ticks: { color: 'white' } },
     },
+    responsive: true,
+    maintainAspectRatio: false,
   };
 
   return (
-    <div className="w-3/4 p-4 bg-slate-900">
-      <Line data={chartData} options={options} />
+    <div className="chart-area">
+      <div style={{ height: '100%', minHeight: '400px' }}>
+        <Line data={chartData} options={options} />
+      </div>
     </div>
   );
 };
