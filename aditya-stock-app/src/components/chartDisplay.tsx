@@ -20,7 +20,7 @@ interface ChartDisplayProps {
 
 const ChartDisplay: React.FC<ChartDisplayProps> = ({ data }) => {
   if (data.length === 0) {
-    return <p className="p-4">No data available.</p>;
+    return <div className="w-3/4 p-4 text-gray-400">Select an index to view chart.</div>;
   }
 
   const labels = data.map((entry) => entry.index_date);
@@ -33,15 +33,26 @@ const ChartDisplay: React.FC<ChartDisplayProps> = ({ data }) => {
         label: 'Closing Index Value',
         data: closingValues,
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.2,
+        borderColor: '#06b6d4',
+        backgroundColor: '#06b6d4',
+        tension: 0.3,
       },
     ],
   };
 
+  const options = {
+    plugins: {
+      legend: { labels: { color: 'white' } },
+    },
+    scales: {
+      x: { ticks: { color: 'white' } },
+      y: { ticks: { color: 'white' } },
+    },
+  };
+
   return (
-    <div className="w-3/4 p-4">
-      <Line data={chartData} />
+    <div className="w-3/4 p-4 bg-slate-900">
+      <Line data={chartData} options={options} />
     </div>
   );
 };
