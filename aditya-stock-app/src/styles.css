@@ -16,4 +16,11 @@
     flex: 1;
     padding: 1rem;
   }
+
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f8f9fa;
+  }
+  
   
