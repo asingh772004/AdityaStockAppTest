@@ -10,17 +10,19 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ indexNames, selectedIndex, onSelect }) => (
   <div className="sidebar">
     <h3>Indices</h3>
-    <ul>
-      {indexNames.map((name) => (
-        <li
-          key={name}
-          className={selectedIndex === name ? 'active' : ''}
-          onClick={() => onSelect(name)}
-        >
-          {name}
-        </li>
-      ))}
-    </ul>
+    <div className="sidebar-list">
+      <ul>
+        {indexNames.map((name) => (
+          <li
+            key={name}
+            className={selectedIndex === name ? 'active' : ''}
+            onClick={() => onSelect(name)}
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 );
 

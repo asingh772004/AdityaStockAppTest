@@ -1,10 +1,9 @@
-/* layout.css */
 
 .app-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #0f172a; /* slate-900 */
+    background-color: #0f172a; 
     color: white;
   }
   
@@ -16,10 +15,34 @@
   
   .sidebar {
     width: 500px;
-    background-color: #1e293b; /* slate-800 */
+    background-color: #1e293b; 
     padding: 1rem;
     overflow-y: auto;
     border-right: 1px solid #334155;
+  }
+
+  .sidebar-list {
+    max-height: calc(100vh - 100px); 
+    overflow-y: auto;
+    margin-top: 1rem;
+    padding-right: 4px;
+  }
+  
+  .sidebar-list::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  .sidebar-list::-webkit-scrollbar-thumb {
+    background-color: #334155; 
+    border-radius: 10px;
+  }
+  
+  .sidebar-list::-webkit-scrollbar-track {
+    background-color: #0f172a; 
+  }
+  
+  .sidebar-list::-webkit-scrollbar-thumb:hover {
+    background-color: #06b6d4;
   }
   
   .sidebar ul {
@@ -45,7 +68,7 @@
   
   .header {
     padding: 1rem;
-    background-color: #020617; /* slate-950 */
+    background-color: #020617; 
     color: #06b6d4;
     font-size: 1.5rem;
     font-weight: bold;
