@@ -37,7 +37,7 @@ const App: React.FC = () => {
           selectedIndex={selectedIndex}
           onSelect={setSelectedIndex}
         />
-        <ChartDisplay data={filteredData} />
+        <ChartDisplay selectedIndex={selectedIndex} data={filteredData} />
       </div>
     </div>
   );

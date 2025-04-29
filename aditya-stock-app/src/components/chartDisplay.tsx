@@ -1,60 +1,99 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import { IndexData } from '../utils/csvParser';
-import '../layout.css';
+import React, { useState, useMemo } from 'react';
 import {
   Chart as ChartJS,
-  LineElement,
-  PointElement,
-  LinearScale,
   CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-interface Props {
+interface IndexData {
+  index_name: string;
+  index_date: string;
+  open_index_value: number;
+  high_index_value: number;
+  low_index_value: number;
+  closing_index_value: number;
+  points_change: number;
+  change_percent: number;
+  volume: number;
+  turnover_rs_cr: number;
+  pe_ratio: number;
+  pb_ratio: number;
+  div_yield: number;
+}
+
+interface ChartDisplayProps {
+  selectedIndex: string | null;
   data: IndexData[];
 }
 
-const ChartDisplay: React.FC<Props> = ({ data }) => {
-  if (data.length === 0) {
-    return <div className="chart-area">Select an index to see its chart.</div>;
-  }
+const valueOptions: { key: keyof IndexData; label: string }[] = [
+  { key: 'open_index_value', label: 'Open' },
+  { key: 'high_index_value', label: 'High' },
+  { key: 'low_index_value', label: 'Low' },
+  { key: 'closing_index_value', label: 'Close' },
+  { key: 'points_change', label: 'Points Change' },
+  { key: 'change_percent', label: 'Change %' },
+  { key: 'volume', label: 'Volume' },
+  { key: 'turnover_rs_cr', label: 'Turnover (Cr)' },
+  { key: 'pe_ratio', label: 'P/E Ratio' },
+  { key: 'pb_ratio', label: 'P/B Ratio' },
+  { key: 'div_yield', label: 'Dividend Yield' },
+];
 
-  const labels = data.map((d) => d.index_date);
-  const closingValues = data.map((d) => d.closing_index_value);
+const ChartDisplay: React.FC<ChartDisplayProps> = ({ selectedIndex, data }) => {
+  const [selectedMetric, setSelectedMetric] = useState<keyof IndexData>('closing_index_value');
 
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        label: 'Closing Index',
-        data: closingValues,
-        borderColor: '#1DCD9F',
-        backgroundColor: '#1DCD9F',
-        tension: 0.3,
-      },
-    ],
-  };
+  const filteredData = useMemo(
+    () => data.filter((d) => d.index_name === selectedIndex),
+    [data, selectedIndex]
+  );
 
-  const options = {
-    plugins: { legend: { labels: { color: 'white' } } },
-    scales: {
-      x: { ticks: { color: 'white' } },
-      y: { ticks: { color: 'white' } },
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-  };
+  const chartData = useMemo(() => {
+    return {
+      labels: filteredData.map((d) => d.index_date),
+      datasets: [
+        {
+          label: valueOptions.find((v) => v.key === selectedMetric)?.label || '',
+          data: filteredData.map((d) => d[selectedMetric]),
+          borderColor: '#1DCD9F',
+          backgroundColor: 'rgba(29, 205, 159, 0.2)',
+        },
+      ],
+    };
+  }, [filteredData, selectedMetric]);
+
+  if (!selectedIndex || filteredData.length === 0) return <div>Select an index to view data.</div>;
 
   return (
     <div className="chart-area">
-      <div style={{ height: '100%', minHeight: '400px' }}>
-        <Line data={chartData} options={options} />
+      <div style={{ marginBottom: '1rem' }}>
+        <select
+          value={selectedMetric}
+          onChange={(e) => setSelectedMetric(e.target.value as keyof IndexData)}
+          style={{
+            padding: '0.5rem',
+            borderRadius: '4px',
+            backgroundColor: '#1b1b1b',
+            color: 'white',
+            border: '1px solid #1DCD9F',
+          }}
+        >
+          {valueOptions.map((option) => (
+            <option key={option.key} value={option.key}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
+      <Line data={chartData} />
     </div>
   );
 };
